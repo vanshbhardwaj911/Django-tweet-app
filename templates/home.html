@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #001f3f; /* Navy blue background */
+            color: white; /* White text */
+            font-family: 'Arial', sans-serif; /* Better font */
+            overflow: hidden; /* Prevent scrolling during animation */
+        }
+        .container {
+            margin-top: 100px; /* Space above the content */
+            animation: fadeIn 1s ease-in; /* Fade-in animation */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .btn-custom {
+            background-color: #007bff; /* Button color */
+            border: none; /* No border */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        }
+        .btn-custom:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: scale(1.1); /* Scale up on hover */
+        }
+        .bounce {
+            animation: bounce 1s infinite; /* Bounce animation */
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="display-4 bounce">Welcome to the Home Page</h1>
+        <p class="lead">Click the button below to access the Tweet App.</p>
+        <a href="{% url 'tweet_list' %}">
+            <button class="btn btn-custom btn-lg">Go to Tweet App</button>
+        </a>
+    </div>
+
+    <!-- Bootstrap JS (optional, for interactivity) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

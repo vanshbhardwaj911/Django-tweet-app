@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Project or Tweet
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center text-white mb-4">Welcome to TweetApp</h1>
+    <div class="text-center mb-4">
+        <a class="btn btn-primary btn-lg" href="{% url 'tweet_create' %}">Create a New Tweet</a>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="tweetContainer">
+        {% for tweet in tweets %}
+        <div class="col tweet-card">
+            <div class="card text-white bg-dark h-100 border-0 shadow-lg">
+                {% if tweet.photo %}
+                <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ tweet.user.username }}</h5>
+                    <p class="card-text">{{ tweet.text }}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        {% if tweet.user == user %}
+                        <div>
+                            <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary btn-sm me-2 animate-button">Edit</a>
+                            <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger btn-sm animate-button">Delete</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+        opacity: 0; /* Start hidden */
+    }
+
+    .card:hover {
+        transform: translateY(-5px) scale(1.02); /* Lift effect on hover with slight scaling */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
+    }
+
+    .animate-button {
+        transition: transform 0.3s;
+    }
+
+    .animate-button:hover {
+        transform: scale(1.1); /* Scale up buttons on hover */
+    }
+</style>
+
+<script>
+    // Fade-in animation for tweet cards
+    document.addEventListener("DOMContentLoaded", function () {
+        const tweetCards = document.querySelectorAll(".tweet-card");
+        tweetCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.querySelector(".card").style.opacity = 1; // Fade in effect
+            }, index * 100); // Stagger the fade in effect
+        });
+    });
+
+    // Optional: Add a confirmation dialog for delete action
+    const deleteButtons = document.querySelectorAll('.btn-danger');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            const confirmDelete = confirm('Are you sure you want to delete this tweet?');
+            if (!confirmDelete) {
+                event.preventDefault(); // Prevent default action if not confirmed
+            }
+        });
+    });
+</script>
+{% endblock %}
